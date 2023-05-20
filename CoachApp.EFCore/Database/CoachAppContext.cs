@@ -2,6 +2,7 @@
 using CoachApp.Application.Domain.Users.Context;
 using CoachApp.Domain._Common;
 using CoachApp.Domain.Clients;
+using CoachApp.Domain.Packs;
 using CoachApp.Domain.Services;
 using CoachApp.Domain.Users;
 using CoachApp.EFCore.Domain.Clients;
@@ -13,17 +14,19 @@ namespace CoachApp.EFCore.Database;
 internal class CoachAppContext : DbContext
 {
     private static PropertyInfo _ownerIdPropertyInfo = typeof(BaseAggregatePerTenant).GetProperty(nameof(BaseAggregatePerTenant.OwnerUserId))!;
-
+    private readonly IDbContextFactory<CoachAppContext> _factory;
     private readonly IUserContextFactory _userContextFactory;
 
-    public CoachAppContext(DbContextOptions<CoachAppContext> options, IUserContextFactory userContextFactory) : base(options)
+    public CoachAppContext(IDbContextFactory<CoachAppContext> factory, DbContextOptions<CoachAppContext> options, IUserContextFactory userContextFactory) : base(options)
     {
+        _factory = factory;
         _userContextFactory = userContextFactory;
     }
 
     public DbSet<Client> Clients { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Service> Services { get; set; }
+    public DbSet<Pack> Packs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,4 +55,6 @@ internal class CoachAppContext : DbContext
         }
         return base.SaveChangesAsync(cancellationToken);
     }
+
+    public CoachAppContext CreateContextForQuery() => _factory.CreateDbContext();
 }

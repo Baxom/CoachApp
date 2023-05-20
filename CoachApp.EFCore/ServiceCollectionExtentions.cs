@@ -12,7 +12,7 @@ public static class ServiceCollectionExtentions
     {
         services.AddTransient(typeof(IRepository<>), typeof(EFCoreRepository<>));
 
-        return services.AddDbContext<CoachAppContext>(options => options.UseSqlServer(configuration.GetValue<string>("SqlServer:ConnectionString")));
+        return services.AddDbContextFactory<CoachAppContext>(options => options.UseSqlServer(configuration.GetValue<string>("SqlServer:ConnectionString")));
     }
 
 }
