@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoachApp.EFCore.Migrations
 {
     [DbContext(typeof(CoachAppContext))]
-    [Migration("20230514230141_OwnerUser")]
-    partial class OwnerUser
+    [Migration("20230521232312_InitDatabase")]
+    partial class InitDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,27 @@ namespace CoachApp.EFCore.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("CoachApp.Domain.Services.Service", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsPersonalServices")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("OwnerUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Services");
+                });
+
             modelBuilder.Entity("CoachApp.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -80,6 +101,61 @@ namespace CoachApp.EFCore.Migrations
 
             modelBuilder.Entity("CoachApp.Domain.Clients.Client", b =>
                 {
+                    b.OwnsMany("CoachApp.Domain.Clients.Entities.Pack", "Packs", b1 =>
+                        {
+                            b1.Property<Guid>("ClientId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("NumberOfSessions")
+                                .HasColumnType("int");
+
+                            b1.Property<DateTime?>("PaymentDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("RemainingSessions")
+                                .HasColumnType("int");
+
+                            b1.Property<Guid>("ServiceId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("ClientId", "Id");
+
+                            b1.ToTable("Packs");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClientId");
+
+                            b1.OwnsOne("CoachApp.Domain._Common.Price", "Price", b2 =>
+                                {
+                                    b2.Property<Guid>("PackClientId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<Guid>("PackId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<decimal>("Amount")
+                                        .HasColumnType("decimal(18,2)");
+
+                                    b2.Property<string>("Currency")
+                                        .IsRequired()
+                                        .HasColumnType("nvarchar(max)");
+
+                                    b2.HasKey("PackClientId", "PackId");
+
+                                    b2.ToTable("Packs");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("PackClientId", "PackId");
+                                });
+
+                            b1.Navigation("Price")
+                                .IsRequired();
+                        });
+
                     b.OwnsOne("CoachApp.Domain.Clients.Models.Adress", "Adress", b1 =>
                         {
                             b1.Property<Guid>("ClientId")
@@ -143,6 +219,8 @@ namespace CoachApp.EFCore.Migrations
 
                     b.Navigation("ContactDetails")
                         .IsRequired();
+
+                    b.Navigation("Packs");
                 });
 
             modelBuilder.Entity("CoachApp.Domain.Users.User", b =>

@@ -26,7 +26,6 @@ internal static class WebApplicationExtensions
         apiRoot.RegisterUserApis();
         apiRoot.RegisterClientApis();
         apiRoot.RegisterServiceApis();
-        apiRoot.RegisterPackApis();
 
         return app;
     }

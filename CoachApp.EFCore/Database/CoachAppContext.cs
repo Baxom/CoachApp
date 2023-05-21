@@ -2,7 +2,7 @@
 using CoachApp.Application.Domain.Users.Context;
 using CoachApp.Domain._Common;
 using CoachApp.Domain.Clients;
-using CoachApp.Domain.Packs;
+using CoachApp.Domain.Clients.Entities;
 using CoachApp.Domain.Services;
 using CoachApp.Domain.Users;
 using CoachApp.EFCore.Domain.Clients;
@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CoachApp.EFCore.Database;
 internal class CoachAppContext : DbContext
 {
-    private static PropertyInfo _ownerIdPropertyInfo = typeof(BaseAggregatePerTenant).GetProperty(nameof(BaseAggregatePerTenant.OwnerUserId))!;
+    private static PropertyInfo _ownerIdPropertyInfo = typeof(AggregateRootPerTenant).GetProperty(nameof(AggregateRootPerTenant.OwnerUserId))!;
     private readonly IDbContextFactory<CoachAppContext> _factory;
     private readonly IUserContextFactory _userContextFactory;
 
@@ -42,7 +42,7 @@ internal class CoachAppContext : DbContext
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var createdEntries = ChangeTracker.Entries()
-            .Where(b => b.State == EntityState.Added && b.Entity is BaseAggregatePerTenant);
+            .Where(b => b.State == EntityState.Added && b.Entity is AggregateRootPerTenant);
 
         if (createdEntries.Any())
         {

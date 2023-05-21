@@ -1,7 +1,7 @@
 ﻿using CoachApp.Domain._Common;
 
 namespace CoachApp.Domain.Services;
-public class Service : BaseAggregatePerTenant
+public class Service : AggregateRootPerTenant
 {
     public string Name { get; private set; }
     public bool IsPersonalServices { get; private set; }

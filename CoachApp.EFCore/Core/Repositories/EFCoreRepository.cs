@@ -3,7 +3,7 @@ using CoachApp.CQRS.Aggregates;
 using CoachApp.EFCore.Database;
 
 namespace CoachApp.EFCore.Core.Repositories;
-internal class EFCoreRepository<TAggregate> : IRepository<TAggregate> where TAggregate : class, IAggregate
+internal class EFCoreRepository<TAggregate> : IRepository<TAggregate> where TAggregate : class, IAggregateRoot
 {
     protected readonly CoachAppContext _coachAppContext;
 

@@ -20,6 +20,12 @@ internal class ClientEntityTypeConfiguration : IEntityTypeConfiguration<Client>
         builder.OwnsOne(x => x.Adress);
         builder.OwnsOne(x => x.ContactDetails);
 
+        builder.OwnsMany(x => x.Packs, owned =>
+        {
+            owned.OwnsOne(x => x.Price);
+        });
+
+
         builder.HasQueryFilter(b => b.OwnerUserId == _userContextFactory.Get().Id);
     }
 }

@@ -34,5 +34,10 @@ public static class ClientApis
         {
             return Results.Ok((await sender.Send(updateClient)).MapToClientModel());
         });
+
+        clientGroupBuilder.MapPost("add-pack", async ([FromBody] AddPackToClient addPackToClient, [FromServices] ISender sender) =>
+        {
+            return Results.Ok((await sender.Send(addPackToClient)).MapToClientModel());
+        });
     }
 }

@@ -1,4 +1,4 @@
 ﻿namespace CoachApp.CQRS.Aggregates;
-public interface IAggregate
+public interface IAggregateRoot : IEntity
 {
 }

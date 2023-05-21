@@ -3,7 +3,7 @@ using CoachApp.EFCore.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoachApp.EFCore.Core.Readers;
-internal abstract class EFCoreReader<T> where T : class, IAggregate
+internal abstract class EFCoreReader<T> where T : class, IAggregateRoot
 {
     private readonly CoachAppContext _coachAppContext;
 
