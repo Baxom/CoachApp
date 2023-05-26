@@ -9,6 +9,7 @@ try
 
 	builder.Services.AddSwagger()
 					.AddCQRS()
+					.AddValidation()
 					.AddUserContext()
                     .AddHttpContextAccessor()
                     .AddEFCore(builder.Configuration);

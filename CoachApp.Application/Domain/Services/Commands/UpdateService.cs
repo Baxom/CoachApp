@@ -1,5 +1,6 @@
-﻿using CoachApp.Domain.Services;
+﻿using CoachApp.CQRS.Results;
+using CoachApp.Domain.Services;
 using MediatR;
 
 namespace CoachApp.Application.Domain.Services.Commands;
-public record UpdateService(Guid Id, string Name, bool IsPersonalServices) : IRequest<Service>;
+public record UpdateService(Guid Id, string Name, bool IsPersonalServices) : IRequest<ValidateExistingResult<Service>>;

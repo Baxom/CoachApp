@@ -1,11 +1,12 @@
 ﻿using CoachApp.Application.Core.Repositories;
-using CoachApp.CQRS.Exceptions;
+using CoachApp.CQRS.Results;
 using CoachApp.Domain.Services;
 using MediatR;
+using OneOf.Types;
 
 namespace CoachApp.Application.Domain.Services.Commands.Handler;
-internal class ServiceCommandHandler : IRequestHandler<CreateService, Service>,
-                                        IRequestHandler<UpdateService, Service>
+internal class ServiceCommandHandler : IRequestHandler<CreateService, ValidateResult<Service>>,
+                                        IRequestHandler<UpdateService, ValidateExistingResult<Service>>
 {
     private readonly IRepository<Service> _serviceRepository;
 
@@ -14,15 +15,17 @@ internal class ServiceCommandHandler : IRequestHandler<CreateService, Service>,
         _serviceRepository = clientRepository;
     }
 
-    public Task<Service> Handle(CreateService createService, CancellationToken cancellationToken)
+    public async Task<ValidateResult<Service>> Handle(CreateService createService, CancellationToken cancellationToken)
     {
-        return _serviceRepository.Add(Service.Create(createService.Name,
+        return await _serviceRepository.Add(Service.Create(createService.Name,
                                                 createService.IsPersonalServices));
     }
 
-    public async Task<Service> Handle(UpdateService updateService, CancellationToken cancellationToken)
+    public async Task<ValidateExistingResult<Service>> Handle(UpdateService updateService, CancellationToken cancellationToken)
     {
-        var service = await _serviceRepository.Get(updateService.Id) ?? throw new AggregateNotFoundException(typeof(Service), updateService.Id);
+        var service = await _serviceRepository.Get(updateService.Id);
+
+        if (service is null) return new NotFound();
 
         service.Update(updateService.Name, updateService.IsPersonalServices);
 

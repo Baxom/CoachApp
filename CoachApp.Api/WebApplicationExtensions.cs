@@ -19,7 +19,7 @@ internal static class WebApplicationExtensions
         app.UseEFCore();
 
         RouteGroupBuilder apiRoot = app.MapGroup("");
-        apiRoot.AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
+      //  apiRoot.AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
 
         app.UseHttpsRedirection();
 

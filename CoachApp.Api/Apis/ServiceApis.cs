@@ -1,6 +1,10 @@
-﻿using CoachApp.Application.Domain.Services.Commands;
+﻿using CoachApp.Api.Extentions;
+using CoachApp.Application.Domain.Clients.Commands;
+using CoachApp.Application.Domain.Clients.Queries;
+using CoachApp.Application.Domain.Services.Commands;
 using CoachApp.Application.Domain.Services.Models.Mappers;
 using CoachApp.Application.Domain.Services.Queries;
+using CoachApp.Domain.Clients;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +21,12 @@ public static class ServiceApis
 
         serviceGroupBuilder.MapPost("", async ([FromBody] CreateService createService, [FromServices] ISender sender) =>
         {
-            return Results.Ok((await sender.Send(createService)).MapToServiceModel());
+            return (await sender.Send(createService)).ToOkResult(service => service.MapToServiceModel());
         });
 
         serviceGroupBuilder.MapGet("{serviceId}", async ([FromRoute] Guid serviceId, [FromServices] ISender sender) =>
         {
-            return Results.Ok(await sender.Send(new GetServiceById(serviceId)));
+            return (await sender.Send(new GetServiceById(serviceId))).ToOkResult(client => client.MapToServiceModel());
         });
 
         serviceGroupBuilder.MapGet("", ([FromServices] ISender sender) =>
@@ -32,7 +36,7 @@ public static class ServiceApis
 
         serviceGroupBuilder.MapPut("", async ([FromBody] UpdateService updateService, [FromServices] ISender sender) =>
         {
-            return Results.Ok((await sender.Send(updateService)).MapToServiceModel());
+            return (await sender.Send(updateService)).ToOkResult(service => service.MapToServiceModel());
         });
     }
 }

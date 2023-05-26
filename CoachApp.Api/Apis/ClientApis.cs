@@ -1,4 +1,5 @@
-﻿using CoachApp.Application.Domain.Clients.Commands;
+﻿using CoachApp.Api.Extentions;
+using CoachApp.Application.Domain.Clients.Commands;
 using CoachApp.Application.Domain.Clients.Models.Mappers;
 using CoachApp.Application.Domain.Clients.Queries;
 using MediatR;
@@ -17,12 +18,12 @@ public static class ClientApis
 
         clientGroupBuilder.MapPost("", async ([FromBody] CreateClient createClient, [FromServices] ISender sender) =>
         {
-            return Results.Ok((await sender.Send(createClient)).MapToClientModel());
+            return (await sender.Send(createClient)).ToOkResult(client => client.MapToClientModel());
         });
 
         clientGroupBuilder.MapGet("{clientId}", async ([FromRoute] Guid clientId, [FromServices] ISender sender) =>
         {
-            return Results.Ok(await sender.Send(new GetClientById(clientId)));
+            return (await sender.Send(new GetClientById(clientId))).ToOkResult(client => client.MapToClientModel());
         });
 
         clientGroupBuilder.MapGet("", ([FromServices] ISender sender) =>
@@ -32,12 +33,12 @@ public static class ClientApis
 
         clientGroupBuilder.MapPut("", async ([FromBody] UpdateClient updateClient, [FromServices] ISender sender) =>
         {
-            return Results.Ok((await sender.Send(updateClient)).MapToClientModel());
+            return (await sender.Send(updateClient)).ToOkResult(client => client.MapToClientModel());
         });
 
         clientGroupBuilder.MapPost("add-pack", async ([FromBody] AddPackToClient addPackToClient, [FromServices] ISender sender) =>
         {
-            return Results.Ok((await sender.Send(addPackToClient)).MapToClientModel());
+            return (await sender.Send(addPackToClient)).ToOkResult(client => client.MapToClientModel());
         });
     }
 }
