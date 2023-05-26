@@ -5,6 +5,7 @@ using MediatR;
 namespace CoachApp.CQRS.Mediatr;
 public class FluentValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
+    private const string OneOfBaseType = "OneOf.OneOfBase";
     private readonly Type _validationResultType = typeof(ValidationResult);
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -19,7 +20,7 @@ public class FluentValidationBehavior<TRequest, TResponse> : IPipelineBehavior<T
     {
         var responseType = typeof(TResponse);
  
-        if(responseType.BaseType?.FullName?.StartsWith("OneOf.OneOfBase") ?? false
+        if(responseType.BaseType?.FullName?.StartsWith(OneOfBaseType) ?? false
             && responseType.BaseType.GenericTypeArguments.Contains(_validationResultType) )
         {
             if (_validators.Any())
@@ -30,7 +31,7 @@ public class FluentValidationBehavior<TRequest, TResponse> : IPipelineBehavior<T
 
                 if (failures.Count != 0)
                 {
-                    var factory = GetTResponseFactory();
+                    var factory = GetTResponseFactory(responseType);
                     return factory(new ValidationResult(failures));
                 }
             }
@@ -40,10 +41,8 @@ public class FluentValidationBehavior<TRequest, TResponse> : IPipelineBehavior<T
 
     }
 
-    private Func<ValidationResult, TResponse> GetTResponseFactory()
+    private Func<ValidationResult, TResponse> GetTResponseFactory(Type responseType)
     {
-        var responseType = typeof(TResponse);
-
         if (_responsefactories.TryGetValue(responseType, out var factory)) return factory;
 
         var implicitOperatorInfo = responseType.GetMethod("op_Implicit", new Type[] {_validationResultType})!;
