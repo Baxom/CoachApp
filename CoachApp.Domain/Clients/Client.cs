@@ -30,7 +30,6 @@ public class Client : AggregateRootPerTenant
     public DateTime BirthDate { get; private set; }
     public ContactDetails ContactDetails { get; private set; }
     public Adress Adress { get; private set; }
-
     public ICollection<Pack> Packs { get; private set; }
 
     public void Update(string lastname, string firstname, DateTime birthDate, ContactDetails contactDetails, Adress adress)

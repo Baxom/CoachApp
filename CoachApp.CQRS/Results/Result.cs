@@ -11,7 +11,7 @@ public partial class ValidateWithoutResult : OneOfBase<ValidationResult>
     public static ValidationResult NoErrors => new ValidationResult();
 }
 
-[GenerateOneOf]
+[GenerateOneOf] 
 public partial class ExistingResult<T> : OneOfBase<T, NotFound>
 {
 

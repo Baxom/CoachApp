@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using CoachApp.CQRS.Mediatr;
+using CoachApp.CQRS.Results;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,13 +15,15 @@ public static class ServiceCollectionExtentions
             cfg.RegisterServicesFromAssemblies(GetAssemblies());
             
         })
-        .AddSingleton(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
+        .AddScoped(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
     }
 
     public static IServiceCollection AddValidation(this IServiceCollection services)
     {
         foreach (var assembly in GetAssemblies())
-            services.AddValidatorsFromAssembly(assembly, ServiceLifetime.Singleton);
+            services.AddValidatorsFromAssembly(assembly, ServiceLifetime.Scoped);
+
+        services.AddSingleton(typeof(IBuildValidationResult<,>), typeof(ValidationResultBuilder<,>));
 
         return services;
         
