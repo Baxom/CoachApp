@@ -1,11 +1,12 @@
-﻿using CoachApp.CQRS.Results;
+﻿using CoachApp.CQRS.Commands;
+using CoachApp.CQRS.Results;
 using CoachApp.Domain.Clients;
 using CoachApp.Domain.Clients.Models;
 using FluentValidation;
 using MediatR;
 
 namespace CoachApp.Application.Domain.Clients.Commands;
-public record UpdateClient(Guid Id, string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : IRequest<ValidateExistingResult<Client>>;
+public record UpdateClient(Guid Id, string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : ICommand<ValidateExistingResult<Client>>;
 
 public class UpdateClientValidator : AbstractValidator<UpdateClient>
 {

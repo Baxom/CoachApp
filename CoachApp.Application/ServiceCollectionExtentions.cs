@@ -15,6 +15,6 @@ public static class ServiceCollectionExtentions
 
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        return services.AddCQRS(new[] { typeof(FluentValidationBehavior<,>), typeof(TransactionBehavior<,>) });
+        return services.AddCQRS(new[] { typeof(FluentValidationBehavior<,>), typeof(TransactionBehavior<,>), typeof(EventPublisherBehavior<,>) });
     }
 }

@@ -1,16 +1,12 @@
 ﻿using CoachApp.Application.Core.Repositories;
-using CoachApp.CQRS.Exceptions;
+using CoachApp.Application.Domain.Clients.Commands;
+using CoachApp.CQRS.Results;
 using CoachApp.Domain.Clients;
 using CoachApp.Domain.Clients.Entities;
-using FluentValidation;
 using MediatR;
 using OneOf.Types;
-using OneOf;
-using FluentValidation.Results;
-using CoachApp.CQRS.Results;
-using System.Reflection.Metadata.Ecma335;
 
-namespace CoachApp.Application.Domain.Clients.Commands.Handler;
+namespace CoachApp.Application.Domain.Clients.Handlers;
 internal class ClientCommandHandler : IRequestHandler<CreateClient, ValidateResult<Client>>,
                                         IRequestHandler<UpdateClient, ValidateExistingResult<Client>>,
                                         IRequestHandler<AddPackToClient, ValidateExistingResult<Client>>

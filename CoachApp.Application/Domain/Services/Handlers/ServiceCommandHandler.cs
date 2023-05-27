@@ -1,10 +1,11 @@
 ﻿using CoachApp.Application.Core.Repositories;
+using CoachApp.Application.Domain.Services.Commands;
 using CoachApp.CQRS.Results;
 using CoachApp.Domain.Services;
 using MediatR;
 using OneOf.Types;
 
-namespace CoachApp.Application.Domain.Services.Commands.Handler;
+namespace CoachApp.Application.Domain.Services.Handlers;
 internal class ServiceCommandHandler : IRequestHandler<CreateService, ValidateResult<Service>>,
                                         IRequestHandler<UpdateService, ValidateExistingResult<Service>>
 {
@@ -17,8 +18,11 @@ internal class ServiceCommandHandler : IRequestHandler<CreateService, ValidateRe
 
     public async Task<ValidateResult<Service>> Handle(CreateService createService, CancellationToken cancellationToken)
     {
-        return await _serviceRepository.Add(Service.Create(createService.Name,
-                                                createService.IsPersonalServices));
+        Service service = await _serviceRepository.Add(Service.Create(createService.Name,
+                                                        createService.IsPersonalServices));
+        throw new NotImplementedException();
+
+        return service;
     }
 
     public async Task<ValidateExistingResult<Service>> Handle(UpdateService updateService, CancellationToken cancellationToken)

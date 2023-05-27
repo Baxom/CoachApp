@@ -10,8 +10,4 @@
     <ProjectReference Include="..\CoachApp.CQRS\CoachApp.CQRS.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
-
 </Project>

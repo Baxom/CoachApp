@@ -1,4 +1,5 @@
-﻿using CoachApp.CQRS.Results;
+﻿using CoachApp.CQRS.Commands;
+using CoachApp.CQRS.Results;
 using CoachApp.Domain.Clients;
 using CoachApp.Domain.Clients.Models;
 using FluentValidation;
@@ -8,7 +9,7 @@ using OneOf;
 using OneOf.Types;
 
 namespace CoachApp.Application.Domain.Clients.Commands;
-public record CreateClient(string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : IRequest<ValidateResult<Client>>;
+public record CreateClient(string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : ICommand<ValidateResult<Client>>;
 
 public class CreateClientValidator : AbstractValidator<CreateClient>
 {

@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using CoachApp.Domain._Common;
 using CoachApp.Domain.Clients.Entities;
+using CoachApp.Domain.Clients.Events;
 using CoachApp.Domain.Clients.Models;
 
 namespace CoachApp.Domain.Clients;
@@ -23,7 +25,12 @@ public class Client : AggregateRootPerTenant
         Packs = new List<Pack>();
     }
 
-    public static Client Create(string lastname, string firstname, DateTime birthDate, ContactDetails contactDetails, Adress adress) => new(lastname, firstname, birthDate, contactDetails, adress);
+    public static Client Create(string lastname, string firstname, DateTime birthDate, ContactDetails contactDetails, Adress adress)
+    {
+        Client client = new(lastname, firstname, birthDate, contactDetails, adress);
+        client.RaiseEvent(new ClientCreated(client.Id));
+        return client;
+    }
 
     public string Lastname { get; private set; }
     public string Firstname { get; private set; }

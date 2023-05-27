@@ -1,6 +1,5 @@
 ﻿//using CoachApp.Api.Apis;
 using CoachApp.Api.Apis;
-using CoachApp.Api.Filters;
 using CoachApp.EFCore;
 
 namespace CoachApp.Api;
@@ -19,7 +18,6 @@ internal static class WebApplicationExtensions
         app.UseEFCore();
 
         RouteGroupBuilder apiRoot = app.MapGroup("");
-      //  apiRoot.AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
 
         app.UseHttpsRedirection();
 

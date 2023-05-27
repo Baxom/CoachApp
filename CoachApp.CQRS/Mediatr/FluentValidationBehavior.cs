@@ -19,6 +19,5 @@ public class FluentValidationBehavior<TRequest, TResponse> : IPipelineBehavior<T
     {
         return _buildValidationResult.ValidateAndExecuteNext(request, next, cancellationToken, _validators);
     }
-
 }
 

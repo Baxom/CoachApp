@@ -9,22 +9,23 @@ internal class EFCoreContextTransaction : IUnitOfWorkTransaction
     private bool _rollbacked = false;
     private readonly IDbContextTransaction _dbContextTransaction;
     private readonly DbContext _dbContext;
-    private int _holders;
+    private int _commitHolders;
+    private int _disposeHolders;
 
     public EFCoreContextTransaction(IDbContextTransaction dbContextTransaction, DbContext dbContext)
     {
         _dbContextTransaction = dbContextTransaction;
         _dbContext = dbContext;
-        _holders = 0;
+        _commitHolders = 0;
     }
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
     {
         if (_rollbacked) return;
 
-        Interlocked.Decrement(ref _holders);
+        Interlocked.Decrement(ref _commitHolders);
 
-        if(Interlocked.CompareExchange(ref _holders, 0, 0) == 0)
+        if(Interlocked.CompareExchange(ref _commitHolders, 0, 0) == 0)
         {
             await _dbContext.SaveChangesAsync(cancellationToken);
             await _dbContextTransaction.CommitAsync(cancellationToken);
@@ -33,7 +34,11 @@ internal class EFCoreContextTransaction : IUnitOfWorkTransaction
 
     public void Dispose()
     {
-        _dbContextTransaction.Dispose();
+        Interlocked.Decrement(ref _disposeHolders);
+
+        if (Interlocked.CompareExchange(ref _disposeHolders, 0, 0) == 0)
+            _dbContextTransaction.Dispose();
+
     }
 
     public Task RollbackAsync(CancellationToken cancellationToken = default)
@@ -45,6 +50,7 @@ internal class EFCoreContextTransaction : IUnitOfWorkTransaction
 
     internal void IncrementHolder()
     {
-        Interlocked.Increment(ref _holders);
+        Interlocked.Increment(ref _commitHolders);
+        Interlocked.Increment(ref _disposeHolders);
     }
 }
