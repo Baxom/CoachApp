@@ -1,21 +1,21 @@
 ﻿using System.Reflection;
 using CoachApp.CQRS.Mediatr;
-using CoachApp.CQRS.Results;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoachApp.CQRS;
 public static class ServiceCollectionExtentions
 {
-    public static IServiceCollection AddCQRS(this IServiceCollection services)
+    public static IServiceCollection AddCQRS(this IServiceCollection services, Type[] mediatrBehaviours)
     {
         return services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblies(GetAssemblies());
-            
-        })
-        .AddScoped(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
+            foreach (var mediatrBehaviour in mediatrBehaviours)
+            {
+                cfg.AddOpenBehavior(mediatrBehaviour);
+            }
+        });
     }
 
     public static IServiceCollection AddValidation(this IServiceCollection services)
@@ -26,7 +26,7 @@ public static class ServiceCollectionExtentions
         services.AddSingleton(typeof(IBuildValidationResult<,>), typeof(ValidationResultBuilder<,>));
 
         return services;
-        
+
     }
 
     private static Assembly[] GetAssemblies()

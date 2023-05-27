@@ -1,5 +1,5 @@
 ﻿using CoachApp.Application.Core.Repositories;
-using CoachApp.EFCore.Core.Repositories;
+using CoachApp.EFCore.Core.UnitOfWork;
 using CoachApp.EFCore.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +10,9 @@ public static class ServiceCollectionExtentions
 {
     public static IServiceCollection AddEFCore(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddTransient(typeof(IRepository<>), typeof(EFCoreRepository<>));
+        services.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>))
+            .AddScoped<IUnitOfWork, UnitOfWork>();
+
 
         return services.AddDbContextFactory<CoachAppContext>(options => options.UseSqlServer(configuration.GetValue<string>("SqlServer:ConnectionString")));
     }

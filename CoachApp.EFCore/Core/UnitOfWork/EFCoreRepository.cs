@@ -2,7 +2,7 @@
 using CoachApp.CQRS.Aggregates;
 using CoachApp.EFCore.Database;
 
-namespace CoachApp.EFCore.Core.Repositories;
+namespace CoachApp.EFCore.Core.UnitOfWork;
 internal class EFCoreRepository<TAggregate> : IRepository<TAggregate> where TAggregate : class, IAggregateRoot
 {
     protected readonly CoachAppContext _coachAppContext;
@@ -12,13 +12,10 @@ internal class EFCoreRepository<TAggregate> : IRepository<TAggregate> where TAgg
         _coachAppContext = coachAppContext;
     }
 
-    public async Task<TAggregate> Add(TAggregate entity)
+    public Task<TAggregate> Add(TAggregate entity)
     {
         _coachAppContext.Add(entity);
-
-        await _coachAppContext.SaveChangesAsync();
-
-        return entity;
+        return Task.FromResult(entity);
     }
 
     public async Task<TAggregate?> Get(Guid id, CancellationToken? cancellationToken = null)
@@ -29,6 +26,7 @@ internal class EFCoreRepository<TAggregate> : IRepository<TAggregate> where TAgg
 
     public Task Update(TAggregate entity)
     {
-        return _coachAppContext.SaveChangesAsync();
+        if(_coachAppContext.Entry(entity).State == Microsoft.EntityFrameworkCore.EntityState.Detached) _coachAppContext.Attach(entity);
+        return Task.CompletedTask;
     }
 }

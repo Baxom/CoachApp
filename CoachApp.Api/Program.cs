@@ -8,7 +8,7 @@ try
 	WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 	builder.Services.AddSwagger()
-					.AddCQRS()
+					.AddApplication()
 					.AddValidation()
 					.AddUserContext()
                     .AddHttpContextAccessor()
