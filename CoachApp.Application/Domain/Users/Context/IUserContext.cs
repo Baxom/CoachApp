@@ -3,4 +3,5 @@
 public interface IUserContext
 {
     Guid Id { get; }
+    string Email { get; init; }
 }

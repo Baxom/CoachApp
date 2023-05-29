@@ -17,9 +17,12 @@ internal static class WebApplicationExtensions
 
         app.UseEFCore();
 
-        RouteGroupBuilder apiRoot = app.MapGroup("");
+        RouteGroupBuilder apiRoot = app.MapGroup("")
+            .RequireAuthorization();
 
         app.UseHttpsRedirection();
+
+        app.UseAuthentication();
 
         apiRoot.RegisterUserApis();
         apiRoot.RegisterClientApis();

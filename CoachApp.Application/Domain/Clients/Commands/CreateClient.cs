@@ -3,13 +3,9 @@ using CoachApp.CQRS.Results;
 using CoachApp.Domain.Clients;
 using CoachApp.Domain.Clients.Models;
 using FluentValidation;
-using FluentValidation.Results;
-using MediatR;
-using OneOf;
-using OneOf.Types;
 
 namespace CoachApp.Application.Domain.Clients.Commands;
-public record CreateClient(string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : ICommand<ValidateResult<Client>>;
+public record struct CreateClient(string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : ICommand<ValidateResult<Client>>;
 
 public class CreateClientValidator : AbstractValidator<CreateClient>
 {

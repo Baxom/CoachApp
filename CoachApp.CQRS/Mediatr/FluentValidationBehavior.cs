@@ -1,6 +1,4 @@
-﻿using CoachApp.CQRS.Results;
-using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation;
 using MediatR;
 
 namespace CoachApp.CQRS.Mediatr;

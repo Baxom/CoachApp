@@ -1,7 +1,7 @@
 ﻿using CoachApp.Application.Core.Repositories;
+using CoachApp.Application.Domain.Users;
 using CoachApp.Domain.Clients;
 using CoachApp.Domain.Services;
-using CoachApp.Domain.Users;
 using CoachApp.EFCore.Database;
 
 namespace CoachApp.EFCore.Core.UnitOfWork;
@@ -10,7 +10,7 @@ internal class UnitOfWork : IUnitOfWork
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
     private EFCoreContextTransaction? _unitOfWorkTransaction;
 
-    public UnitOfWork(CoachAppContext coachAppContext, IRepository<Client> clients, IRepository<Service> services, IRepository<User> users)
+    public UnitOfWork(CoachAppContext coachAppContext, IRepository<Client> clients, IRepository<Service> services, IUserRepository users)
     {
         _coachAppContext = coachAppContext;
         Clients = clients;
@@ -22,7 +22,7 @@ internal class UnitOfWork : IUnitOfWork
 
     public IRepository<Client> Clients { get; }
     public IRepository<Service> Services { get; }
-    public IRepository<User> Users { get; }
+    public IUserRepository Users { get; }
 
     public async Task SaveChangesAsync()
     {

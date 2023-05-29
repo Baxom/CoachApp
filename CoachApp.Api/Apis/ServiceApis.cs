@@ -1,10 +1,7 @@
 ﻿using CoachApp.Api.Extentions;
-using CoachApp.Application.Domain.Clients.Commands;
-using CoachApp.Application.Domain.Clients.Queries;
 using CoachApp.Application.Domain.Services.Commands;
 using CoachApp.Application.Domain.Services.Models.Mappers;
 using CoachApp.Application.Domain.Services.Queries;
-using CoachApp.Domain.Clients;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

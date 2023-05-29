@@ -11,16 +11,16 @@ public class User : AggregateRoot
 
     }
 
-    private User(string login, string password) : base(true)
+    private User(string email, string encryptedPassword) : base(true)
     {
-        Login = login;
-        Password = password;
+        Email = email;
+        EncrytedPassword = encryptedPassword;
     }
 
-    public static User Create(string login, string password) => new(login, password);
+    public static User Create(string login, string encryptedPassword) => new(login, encryptedPassword);
 
-    public string Login { get; private set; }
-    public string Password { get; private set; }
+    public string Email { get; private set; }
+    public string EncrytedPassword { get; private set; }
     public string? Lastname { get; private set; }
     public string? Firstname { get; private set; }
     public DateTime? BirthDate { get; private set; }

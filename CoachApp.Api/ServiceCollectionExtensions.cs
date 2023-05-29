@@ -1,4 +1,10 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using CoachApp.Api.Jwt;
+using CoachApp.Api.OptionsSetup;
+using CoachApp.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace CoachApp.Api;
 
@@ -40,4 +46,23 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
+    {
+        services.AddAuthentication()
+                .AddJwtBearer();
+
+        services.AddAuthorization();
+
+        services.AddSingleton<IProvideJwt, JwtProvider>()
+                .AddScoped<IAuthenticateUser, UserAuthenticator>();
+
+        services.ConfigureOptions<JwtConfigurationSetup>()
+                    .AddTransient(p => p.GetRequiredService<IOptions<JwtConfiguration>>().Value)
+                    .ConfigureOptions<JwtBearerOptionsSetup>()
+                    .AddTransient(p => p.GetRequiredService<IOptions<JwtBearerOptions>>().Value);
+
+        return services;
+    }
+
 }

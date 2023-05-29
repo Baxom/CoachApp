@@ -5,26 +5,30 @@ using CoachApp.EFCore;
 
 try
 {
-	WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-	builder.Services.AddSwagger()
-					.AddApplication()
-					.AddValidation()
-					.AddUserContext()
+    builder.Configuration.AddJsonFile("appsettings.json");
+    
+
+    builder.Services.AddSwagger()
+                    .AddJwtAuthentication()
+                    .AddApplication()
+                    .AddValidation()
+                    .AddUserContext()
                     .AddHttpContextAccessor()
                     .AddEFCore(builder.Configuration);
 
-	IHostBuilderExtensions.ConfigureHostBuilder(builder.Host);
+    IHostBuilderExtensions.ConfigureHostBuilder(builder.Host);
 
-	var app = builder.Build();
+    var app = builder.Build();
 
-	app.Bootstrap();
+    app.Bootstrap();
 
-	await app.RunAsync();
-	await app.WaitForShutdownAsync();
+    await app.RunAsync();
+    await app.WaitForShutdownAsync();
 }
-catch (Exception ex)
+catch (Exception)
 {
 
-	throw;
+    throw;
 }

@@ -1,9 +1,6 @@
-﻿using CoachApp.Application.Domain.Clients.Models;
-using CoachApp.Application.Domain.Clients.Queries;
-using CoachApp.Application.Domain.Services.Models;
+﻿using CoachApp.Application.Domain.Services.Models;
 using CoachApp.Application.Domain.Services.Queries;
 using CoachApp.CQRS.Results;
-using CoachApp.Domain.Clients;
 using CoachApp.Domain.Services;
 using CoachApp.EFCore.Core.Readers;
 using CoachApp.EFCore.Database;

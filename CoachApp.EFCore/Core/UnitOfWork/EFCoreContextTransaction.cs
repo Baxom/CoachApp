@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using CoachApp.Application.Core.Repositories;
+﻿using CoachApp.Application.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 

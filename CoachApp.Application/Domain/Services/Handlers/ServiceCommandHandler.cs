@@ -9,31 +9,34 @@ namespace CoachApp.Application.Domain.Services.Handlers;
 internal class ServiceCommandHandler : IRequestHandler<CreateService, ValidateResult<Service>>,
                                         IRequestHandler<UpdateService, ValidateExistingResult<Service>>
 {
-    private readonly IRepository<Service> _serviceRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ServiceCommandHandler(IRepository<Service> clientRepository)
+    public ServiceCommandHandler(IUnitOfWork unitOfWork)
     {
-        _serviceRepository = clientRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ValidateResult<Service>> Handle(CreateService createService, CancellationToken cancellationToken)
     {
-        Service service = await _serviceRepository.Add(Service.Create(createService.Name,
+        Service service = await _unitOfWork.Services.Add(Service.Create(createService.Name,
                                                         createService.IsPersonalServices));
-        throw new NotImplementedException();
+       
+        await _unitOfWork.SaveChangesAsync();
 
         return service;
     }
 
     public async Task<ValidateExistingResult<Service>> Handle(UpdateService updateService, CancellationToken cancellationToken)
     {
-        var service = await _serviceRepository.Get(updateService.Id);
+        var service = await _unitOfWork.Services.Get(updateService.Id);
 
         if (service is null) return new NotFound();
 
         service.Update(updateService.Name, updateService.IsPersonalServices);
 
-        await _serviceRepository.Update(service);
+        await _unitOfWork.Services.Update(service);
+
+        await _unitOfWork.SaveChangesAsync();
 
         return service;
     }

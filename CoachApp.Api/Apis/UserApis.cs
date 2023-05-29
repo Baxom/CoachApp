@@ -1,4 +1,7 @@
-﻿using CoachApp.Application.Domain.Users.Commands;
+﻿using System.Reflection;
+using CoachApp.Api.Extentions;
+using CoachApp.Api.Services;
+using CoachApp.Application.Domain.Users.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +16,17 @@ public static class UserApis
     {
         var userGroupBuilder = routeGroupBuilder.MapGroup(RouteBase).WithTags(GroupName);
 
-        userGroupBuilder.MapPost($"", async ([FromBody] CreateUserAccount createUserAccount, [FromServices] ISender sender, [FromServices] ILogger<Program> logger) =>
+        userGroupBuilder.MapPost($"", async ([FromBody] CreateUser createUser, [FromServices] ISender sender) =>
         {
-            await sender.Send(createUserAccount);
-            return Results.Ok();
-        });
+            return (await sender.Send(createUser)).ToOkResult();
+        })
+        .AllowAnonymous();
+
+        userGroupBuilder.MapPost($"login", async ([FromBody] AuthenticationModel authenticationModel, [FromServices] IAuthenticateUser userAuthenticator) =>
+        {
+            return (await userAuthenticator.Authenticate(authenticationModel)).ToOkResult();
+        })
+        .AllowAnonymous();
 
     }
 }

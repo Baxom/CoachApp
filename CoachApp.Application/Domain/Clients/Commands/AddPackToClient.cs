@@ -7,7 +7,7 @@ using FluentValidation;
 using MediatR;
 
 namespace CoachApp.Application.Domain.Clients.Commands;
-public record AddPackToClient(Guid ClientId, Guid serviceId, DateTime? paymentDate, Price price, int numberOfSessions) : ICommand<ValidateExistingResult<Client>>;
+public record struct AddPackToClient(Guid ClientId, Guid serviceId, DateTime? paymentDate, Price price, int numberOfSessions) : ICommand<ValidateExistingResult<Client>>;
 
 public class AddPackToClientValidator : AbstractValidator<AddPackToClient>
 {

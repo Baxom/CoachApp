@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using CoachApp.Domain._Common;
+﻿using CoachApp.Domain._Common;
 using CoachApp.Domain.Clients.Entities;
 using CoachApp.Domain.Clients.Events;
 using CoachApp.Domain.Clients.Models;

@@ -2,11 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoachApp.Application.Domain.Users.Context;
-public class UserContextFactory : IUserContextFactory
+public class ScopedUserContextFactory : IUserContextFactory
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UserContextFactory(IHttpContextAccessor httpContextAccessor)
+    public ScopedUserContextFactory(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }

@@ -1,4 +1,5 @@
-﻿using CoachApp.Domain.Clients;
+﻿using CoachApp.Application.Domain.Users;
+using CoachApp.Domain.Clients;
 using CoachApp.Domain.Services;
 using CoachApp.Domain.Users;
 
@@ -7,7 +8,7 @@ public interface IUnitOfWork
 {
     IRepository<Client> Clients { get; }
     IRepository<Service> Services { get; }
-    IRepository<User> Users { get; }
+    IUserRepository Users { get; }
 
     Task SaveChangesAsync();
 
