@@ -1,6 +1,6 @@
-﻿using CoachApp.CQRS.DomainEvents;
+﻿using CoachApp.DDD.DomainEvents;
 
-namespace CoachApp.CQRS.Aggregates;
+namespace CoachApp.DDD.Aggregates;
 public interface IAggregateRoot : IEntity
 {
     internal IReadOnlyCollection<IDomainEvent> DomainEvents { get; }

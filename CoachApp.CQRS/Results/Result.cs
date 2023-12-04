@@ -2,7 +2,7 @@
 using OneOf;
 using OneOf.Types;
 
-namespace CoachApp.CQRS.Results;
+namespace CoachApp.DDD.Results;
 
 [GenerateOneOf]
 public partial class ValidateWithoutResult : OneOfBase<None, ValidationResult>

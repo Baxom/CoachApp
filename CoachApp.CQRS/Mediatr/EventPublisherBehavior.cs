@@ -1,9 +1,9 @@
-﻿using CoachApp.CQRS.Aggregates;
-using CoachApp.CQRS.Commands;
+﻿using CoachApp.DDD.Aggregates;
+using CoachApp.DDD.Commands;
 using MediatR;
 using OneOf;
 
-namespace CoachApp.CQRS.Mediatr;
+namespace CoachApp.DDD.Mediatr;
 public class EventPublisherBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand //where TResponse : IAggregateRoot
 {
     private readonly IPublisher _publisher;
@@ -17,7 +17,7 @@ public class EventPublisherBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
     {
         var response = (await next());
 
-        if (response is IOneOf oneOf && oneOf.Value is IAggregateRoot aggregateRoot)
+        if (response is IOneOf { Value: IAggregateRoot aggregateRoot })
         {
             foreach (var domainEvent in aggregateRoot.DomainEvents)
                 await _publisher.Publish(domainEvent);

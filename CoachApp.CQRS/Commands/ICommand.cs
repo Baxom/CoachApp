@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CoachApp.CQRS.Commands;
+namespace CoachApp.DDD.Commands;
 public interface ICommand : IBaseRequest
 {
 }

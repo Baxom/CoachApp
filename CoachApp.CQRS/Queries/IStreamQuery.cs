@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CoachApp.CQRS.Queries;
+namespace CoachApp.DDD.Queries;
 public interface IStreamQuery<out TResponse> : IStreamRequest<TResponse>
 {
 }

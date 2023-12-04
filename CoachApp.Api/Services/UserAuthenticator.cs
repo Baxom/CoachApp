@@ -2,6 +2,7 @@
 using CoachApp.Application.Domain.Users.Commands;
 using CoachApp.Application.Domain.Users.Context;
 using CoachApp.CQRS.Results;
+using CoachApp.DDD.Results;
 using CoachApp.Domain.Users;
 using MediatR;
 

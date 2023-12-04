@@ -1,4 +1,4 @@
-﻿using CoachApp.CQRS.Aggregates;
+﻿using CoachApp.DDD.Aggregates;
 
 namespace CoachApp.Application.Core.Repositories;
 public interface IRepository<TAggregate> where TAggregate : class, IAggregateRoot

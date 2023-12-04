@@ -1,5 +1,5 @@
 ﻿using CoachApp.Application.Core.Repositories;
-using CoachApp.CQRS.Aggregates;
+using CoachApp.DDD.Aggregates;
 using CoachApp.EFCore.Database;
 using Microsoft.EntityFrameworkCore;
 

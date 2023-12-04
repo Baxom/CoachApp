@@ -1,4 +1,4 @@
-﻿using CoachApp.CQRS.Aggregates;
+﻿using CoachApp.DDD.Aggregates;
 
 namespace CoachApp.Domain._Common;
 public abstract class AggregateRootPerTenant : AggregateRoot

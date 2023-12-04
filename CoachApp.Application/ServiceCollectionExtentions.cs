@@ -3,7 +3,8 @@ using CoachApp.Application.Core.Mediatr;
 using CoachApp.Application.Core.Security;
 using CoachApp.Application.Domain.Users.Context;
 using CoachApp.CQRS;
-using CoachApp.CQRS.Mediatr;
+using CoachApp.DDD;
+using CoachApp.DDD.Mediatr;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoachApp.Application;

@@ -1,4 +1,4 @@
-﻿namespace CoachApp.CQRS.Aggregates;
+﻿namespace CoachApp.DDD.Aggregates;
 public abstract class Entity : IEntity
 {
     public Guid Id { get; private set; }

@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using MediatR;
 
-namespace CoachApp.CQRS.Mediatr;
+namespace CoachApp.DDD.Mediatr;
 
 public interface IBuildValidationResult<TRequest, TResponse>
 {

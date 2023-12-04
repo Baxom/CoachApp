@@ -1,6 +1,7 @@
 ﻿using CoachApp.Application.Domain.Clients.Models;
-using CoachApp.CQRS.Queries;
 using CoachApp.CQRS.Results;
+using CoachApp.DDD.Queries;
+using CoachApp.DDD.Results;
 using CoachApp.Domain.Clients;
 
 namespace CoachApp.Application.Domain.Clients.Queries;

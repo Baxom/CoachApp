@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoachApp.CQRS\CoachApp.CQRS.csproj" />
+    <ProjectReference Include="..\CoachApp.CQRS\CoachApp.DDD.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachApp.EFCore", "CoachApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{A5701BA0-8481-4181-BC82-00588C4C23B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachApp.CQRS", "CoachApp.CQRS\CoachApp.CQRS.csproj", "{08624634-0E4B-43E1-8537-A7C5DCD919B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachApp.DDD", "CoachApp.CQRS\CoachApp.DDD.csproj", "{08624634-0E4B-43E1-8537-A7C5DCD919B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

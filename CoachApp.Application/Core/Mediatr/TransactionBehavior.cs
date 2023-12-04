@@ -1,5 +1,5 @@
 ﻿using CoachApp.Application.Core.Repositories;
-using CoachApp.CQRS.Commands;
+using CoachApp.DDD.Commands;
 using MediatR;
 
 namespace CoachApp.Application.Core.Mediatr;

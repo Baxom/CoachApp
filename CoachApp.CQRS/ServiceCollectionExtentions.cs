@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using CoachApp.CQRS.Mediatr;
+using CoachApp.DDD.Mediatr;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoachApp.CQRS;
+namespace CoachApp.DDD;
 public static class ServiceCollectionExtentions
 {
     public static IServiceCollection AddCQRS(this IServiceCollection services, Type[] mediatrBehaviours)

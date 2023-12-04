@@ -1,6 +1,7 @@
 ﻿using CoachApp.Application.Core.Repositories;
 using CoachApp.Application.Domain.Services.Commands;
 using CoachApp.CQRS.Results;
+using CoachApp.DDD.Results;
 using CoachApp.Domain.Services;
 using MediatR;
 using OneOf.Types;

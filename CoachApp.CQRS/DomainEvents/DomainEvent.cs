@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CoachApp.CQRS.DomainEvents;
+namespace CoachApp.DDD.DomainEvents;
 public interface IDomainEvent : INotification
 {
 }

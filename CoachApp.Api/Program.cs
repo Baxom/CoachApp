@@ -1,6 +1,7 @@
 using CoachApp.Api;
 using CoachApp.Application;
 using CoachApp.CQRS;
+using CoachApp.DDD;
 using CoachApp.EFCore;
 
 try

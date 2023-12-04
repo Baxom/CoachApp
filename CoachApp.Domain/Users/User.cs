@@ -1,4 +1,4 @@
-﻿using CoachApp.CQRS.Aggregates;
+﻿using CoachApp.DDD.Aggregates;
 using CoachApp.Domain.Users.Models;
 
 namespace CoachApp.Domain.Users;

@@ -3,6 +3,7 @@ using CoachApp.Application.Core.Repositories;
 using CoachApp.Application.Core.Security;
 using CoachApp.Application.Domain.Users.Commands;
 using CoachApp.CQRS.Results;
+using CoachApp.DDD.Results;
 using CoachApp.Domain.Users;
 using MediatR;
 using OneOf.Types;

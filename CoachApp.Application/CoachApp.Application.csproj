@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoachApp.CQRS\CoachApp.CQRS.csproj" />
+    <ProjectReference Include="..\CoachApp.CQRS\CoachApp.DDD.csproj" />
     <ProjectReference Include="..\CoachApp.Domain\CoachApp.Domain.csproj" />
   </ItemGroup>
 

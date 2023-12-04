@@ -1,4 +1,5 @@
 ﻿using CoachApp.CQRS.Results;
+using CoachApp.DDD.Results;
 
 namespace CoachApp.Api.Extentions;
 

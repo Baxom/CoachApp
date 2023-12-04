@@ -1,6 +1,7 @@
 ﻿using CoachApp.Application.Domain.Services.Queries;
-using CoachApp.CQRS.Commands;
 using CoachApp.CQRS.Results;
+using CoachApp.DDD.Commands;
+using CoachApp.DDD.Results;
 using CoachApp.Domain._Common;
 using CoachApp.Domain.Clients;
 using FluentValidation;
