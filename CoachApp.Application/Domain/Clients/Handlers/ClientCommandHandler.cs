@@ -22,7 +22,7 @@ internal class ClientCommandHandler : IRequestHandler<CreateClient, ValidateResu
                                                 createClient.Firstname,
                                                 createClient.BirthDate,
                                                 createClient.ContactDetails,
-                                                createClient.Adress));
+                                                createClient.Address));
 
     public async Task<ValidateExistingResult<Client>> Handle(UpdateClient updateClient, CancellationToken cancellationToken)
     {
@@ -30,7 +30,7 @@ internal class ClientCommandHandler : IRequestHandler<CreateClient, ValidateResu
 
         if (client is null) return new NotFound();
 
-        client.Update(updateClient.Lastname, updateClient.Firstname, updateClient.BirthDate, updateClient.ContactDetails, updateClient.Adress);
+        client.Update(updateClient.Lastname, updateClient.Firstname, updateClient.BirthDate, updateClient.ContactDetails, updateClient.Address);
 
         await _unitOfWork.Clients.Update(client);
 
@@ -45,7 +45,7 @@ internal class ClientCommandHandler : IRequestHandler<CreateClient, ValidateResu
 
         if (client is null) return new NotFound();
 
-        client.AddPack(Pack.Create(request.serviceId, request.paymentDate, request.price, request.numberOfSessions));
+        client.AddPack(Pack.Create(request.ServiceId, request.PaymentDate, request.Price, request.NumberOfSessions));
 
         await _unitOfWork.SaveChangesAsync();
 

@@ -17,15 +17,19 @@ internal class ClientEntityTypeConfiguration : IEntityTypeConfiguration<Client>
     {
         builder.HasKey(c => c.Id);
 
-        builder.OwnsOne(x => x.Adress);
+        builder.OwnsOne(x => x.Address);
         builder.OwnsOne(x => x.ContactDetails);
 
         builder.OwnsMany(x => x.Packs, owned =>
         {
-            owned.OwnsOne(x => x.Price);
+            owned.OwnsOne(x => x.Price, price => price.Property(b => b.Amount).HasPrecision(5, 2));
         });
 
-
+        builder.OwnsMany(x => x.Services, owned =>
+        {
+            owned.OwnsOne(x => x.Price, price => price.Property(b => b.Amount).HasPrecision(5,2));
+        });
+        
         builder.HasQueryFilter(b => b.OwnerUserId == _userContextFactory.Get().Id);
     }
 }

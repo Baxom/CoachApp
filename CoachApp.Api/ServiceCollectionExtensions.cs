@@ -23,19 +23,19 @@ public static class ServiceCollectionExtensions
         };
 
         var securityReq = new OpenApiSecurityRequirement()
-{
-    {
-        new OpenApiSecurityScheme
         {
-            Reference = new OpenApiReference
             {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                new string[] {}
             }
-        },
-        new string[] {}
-    }
-};
+        };
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(o =>
@@ -52,7 +52,7 @@ public static class ServiceCollectionExtensions
         services.AddAuthentication()
                 .AddJwtBearer();
 
-        services.AddAuthorization();
+        //services.AddAuthorization();
 
         services.AddSingleton<IProvideJwt, JwtProvider>()
                 .AddScoped<IAuthenticateUser, UserAuthenticator>();

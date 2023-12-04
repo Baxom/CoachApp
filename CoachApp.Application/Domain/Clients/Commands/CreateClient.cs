@@ -5,7 +5,7 @@ using CoachApp.Domain.Clients.Models;
 using FluentValidation;
 
 namespace CoachApp.Application.Domain.Clients.Commands;
-public record struct CreateClient(string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : ICommand<ValidateResult<Client>>;
+public record struct CreateClient(string Lastname, string Firstname, DateTime BirthDate, ContactDetails? ContactDetails, Address? Address) : ICommand<ValidateResult<Client>>;
 
 public class CreateClientValidator : AbstractValidator<CreateClient>
 {

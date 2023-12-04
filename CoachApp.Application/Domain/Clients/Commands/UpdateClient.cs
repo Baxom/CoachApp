@@ -5,7 +5,7 @@ using CoachApp.Domain.Clients.Models;
 using FluentValidation;
 
 namespace CoachApp.Application.Domain.Clients.Commands;
-public record struct UpdateClient(Guid Id, string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Adress Adress) : ICommand<ValidateExistingResult<Client>>;
+public record struct UpdateClient(Guid Id, string Lastname, string Firstname, DateTime BirthDate, ContactDetails ContactDetails, Address Address) : ICommand<ValidateExistingResult<Client>>;
 
 public class UpdateClientValidator : AbstractValidator<UpdateClient>
 {

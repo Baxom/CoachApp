@@ -1,0 +1,17 @@
+{   
+ "version": "0.2.0",
+ "configurations": [
+    {
+        "name": "CoachAppChrome",
+        "type": "dart",
+        "request": "launch",
+        "program": "lib/main.dart",
+        "args": ["--web-port", "59862" ]
+
+    },
+    {
+        "name": "CoachAppAndroid",
+        "request": "launch",
+        "type": "dart"
+    }
+]}

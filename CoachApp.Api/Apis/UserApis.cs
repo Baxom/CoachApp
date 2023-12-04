@@ -16,17 +16,12 @@ public static class UserApis
     {
         var userGroupBuilder = routeGroupBuilder.MapGroup(RouteBase).WithTags(GroupName);
 
-        userGroupBuilder.MapPost($"", async ([FromBody] CreateUser createUser, [FromServices] ISender sender) =>
-        {
-            return (await sender.Send(createUser)).ToOkResult();
-        })
-        .AllowAnonymous();
+        userGroupBuilder.MapPost($"", async ([FromBody] CreateUser createUser, [FromServices] ISender sender) => (await sender.Send(createUser)).ToOkResult())
+                        .AllowAnonymous();
 
-        userGroupBuilder.MapPost($"login", async ([FromBody] AuthenticationModel authenticationModel, [FromServices] IAuthenticateUser userAuthenticator) =>
-        {
-            return (await userAuthenticator.Authenticate(authenticationModel)).ToOkResult();
-        })
-        .AllowAnonymous();
+        userGroupBuilder.MapPost($"login", async ([FromBody] AuthenticationModel authenticationModel, [FromServices] IAuthenticateUser userAuthenticator) 
+                => (await userAuthenticator.Authenticate(authenticationModel)).ToOkResult())
+            .AllowAnonymous();
 
     }
 }

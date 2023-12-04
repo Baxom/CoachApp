@@ -15,14 +15,17 @@ internal static class WebApplicationExtensions
             app.UseSwaggerUI();
         }
 
+        app.UseCors("CorsPolicy");
+
         app.UseEFCore();
 
-        RouteGroupBuilder apiRoot = app.MapGroup("")
-            .RequireAuthorization();
+        RouteGroupBuilder apiRoot = app.MapGroup("");
+            //.RequireAuthorization();
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
+        //app.UseAuthentication();
+
 
         apiRoot.RegisterUserApis();
         apiRoot.RegisterClientApis();

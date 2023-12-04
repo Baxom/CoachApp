@@ -98,6 +98,53 @@ namespace CoachApp.EFCore.Migrations
 
             modelBuilder.Entity("CoachApp.Domain.Clients.Client", b =>
                 {
+                    b.OwnsMany("CoachApp.Domain.Clients.Entities.ClientService", "Services", b1 =>
+                        {
+                            b1.Property<Guid>("ClientId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("ServiceId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("ClientId", "Id");
+
+                            b1.ToTable("ClientService");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClientId");
+
+                            b1.OwnsOne("CoachApp.Domain._Common.Price", "Price", b2 =>
+                                {
+                                    b2.Property<Guid>("ClientServiceClientId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<Guid>("ClientServiceId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<decimal>("Amount")
+                                        .HasPrecision(5, 2)
+                                        .HasColumnType("decimal(5,2)");
+
+                                    b2.Property<string>("Currency")
+                                        .IsRequired()
+                                        .HasColumnType("nvarchar(max)");
+
+                                    b2.HasKey("ClientServiceClientId", "ClientServiceId");
+
+                                    b2.ToTable("ClientService");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("ClientServiceClientId", "ClientServiceId");
+                                });
+
+                            b1.Navigation("Price")
+                                .IsRequired();
+                        });
+
                     b.OwnsMany("CoachApp.Domain.Clients.Entities.Pack", "Packs", b1 =>
                         {
                             b1.Property<Guid>("ClientId")
@@ -135,7 +182,8 @@ namespace CoachApp.EFCore.Migrations
                                         .HasColumnType("uniqueidentifier");
 
                                     b2.Property<decimal>("Amount")
-                                        .HasColumnType("decimal(18,2)");
+                                        .HasPrecision(5, 2)
+                                        .HasColumnType("decimal(5,2)");
 
                                     b2.Property<string>("Currency")
                                         .IsRequired()
@@ -153,7 +201,7 @@ namespace CoachApp.EFCore.Migrations
                                 .IsRequired();
                         });
 
-                    b.OwnsOne("CoachApp.Domain.Clients.Models.Adress", "Adress", b1 =>
+                    b.OwnsOne("CoachApp.Domain.Clients.Models.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("ClientId")
                                 .HasColumnType("uniqueidentifier");
@@ -211,13 +259,13 @@ namespace CoachApp.EFCore.Migrations
                                 .HasForeignKey("ClientId");
                         });
 
-                    b.Navigation("Adress")
-                        .IsRequired();
+                    b.Navigation("Address");
 
-                    b.Navigation("ContactDetails")
-                        .IsRequired();
+                    b.Navigation("ContactDetails");
 
                     b.Navigation("Packs");
+
+                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("CoachApp.Domain.Users.User", b =>

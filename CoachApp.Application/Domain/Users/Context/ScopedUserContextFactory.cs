@@ -11,5 +11,5 @@ public class ScopedUserContextFactory : IUserContextFactory
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public IUserContext Get() => _httpContextAccessor.HttpContext.RequestServices.GetRequiredService<IUserContext>();
+    public IUserContext Get() => _httpContextAccessor.HttpContext?.RequestServices.GetRequiredService<IUserContext>() ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
 }
